@@ -1,11 +1,21 @@
 const express = require("express");
 const app = express();
+const gymRoutes = require("./routes/gym_routes");
+const connectDb = require("./db/connect");
+
 require("dotenv").config();
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Gym Activities" });
-});
+const startConnection = async () => {
+  try {
+    await connectDb(process.env.MONGO_URI);
+    app.listen(process.env.PORT, () => {
+      console.log(`Server is running on port ${process.env.PORT || 3000}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT || 3000}`);
-});
+startConnection();
+app.use("/", gymRoutes);
