@@ -18,4 +18,5 @@ const startConnection = async () => {
 };
 
 startConnection();
+
 app.use("/api/workouts", gymRoutes);

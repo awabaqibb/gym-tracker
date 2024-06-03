@@ -3,7 +3,7 @@ import { Home, Navbar } from "../index";
 
 function App() {
   return (
-    <div className="app">
+    <div className="bg-slate-100 min-h-screen">
       <BrowserRouter>
         <Navbar />
         <div className="pages">
