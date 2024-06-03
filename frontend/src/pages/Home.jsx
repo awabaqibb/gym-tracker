@@ -23,9 +23,13 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex justify-between flex-grow m-10 px-60">
-      <Details workouts={workouts} />
-      <AddWorkout />
+    <div className="flex justify-between my-10 px-4 md:px-10">
+      <div className="flex-grow mx-10">
+        <Details workouts={workouts} />
+      </div>
+      <div className="mx-20">
+        <AddWorkout />
+      </div>
     </div>
   );
 };

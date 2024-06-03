@@ -1,10 +1,24 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 const WorkoutForm = ({ title, submitButtonText, fields }) => {
+  const [formValues, setFormValues] = useState([]);
+
+  const handleInputChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div>
       <h2 className="font-bold text-lg ">{title}</h2>
-      <form className="py-4">
+      <form className="py-4" onSubmit={handleSubmit}>
         {fields.map((field, index) => (
           <div className="flex flex-col justify-between py-2" key={index}>
             <label htmlFor={field.name} className="pb-2 font-medium">
@@ -15,6 +29,8 @@ const WorkoutForm = ({ title, submitButtonText, fields }) => {
               id={field.name}
               name={field.name}
               placeholder={field.placeholder}
+              value={formValues[field.name] || ""}
+              onChange={handleInputChange}
             />
           </div>
         ))}
