@@ -21,7 +21,7 @@ const Home = () => {
     };
 
     fetchWorkouts();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="flex justify-between my-10 px-4 ">

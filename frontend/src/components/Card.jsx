@@ -39,7 +39,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   reps: PropTypes.number.isRequired,
   load: PropTypes.number.isRequired,
-  createdAt: PropTypes.string.isRequired,
+  createdAt: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
 };
 

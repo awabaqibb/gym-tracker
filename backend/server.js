@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const gymRoutes = require("./routes/gym_routes");
+const userRoutes = require("./routes/user_routes");
 const connectDb = require("./db/connect");
 
 require("dotenv").config();
@@ -20,3 +21,4 @@ const startConnection = async () => {
 startConnection();
 
 app.use("/api/workouts", gymRoutes);
+app.use("/api/users", userRoutes);
