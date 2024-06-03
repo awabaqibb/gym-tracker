@@ -34,5 +34,19 @@ userSchema.statics.signup = async function (username, password) {
   return user;
 };
 
+userSchema.statics.login = async function (username, password) {
+  const user = await this.findOne({ username });
+  if (!user) {
+    throw new Error("Invalid username or password");
+  }
+
+  const isPasswordCorrect = await bcrypt.compare(password, user.password);
+  if (!isPasswordCorrect) {
+    throw new Error("Invalid username or password");
+  }
+
+  return user;
+};
+
 const User = mongoose.model("User", userSchema);
 module.exports = User;
