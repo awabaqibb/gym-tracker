@@ -4,17 +4,19 @@ import { Card } from "../../index";
 const Details = ({ workouts }) => {
   return (
     <>
-      {workouts.map((workout) => {
-        return (
-          <Card
-            key={workout._id}
-            title={workout.title}
-            reps={workout.reps}
-            load={workout.load}
-            createdAt={workout.createdAt}
-          />
-        );
-      })}
+      {workouts &&
+        workouts.map((workout) => {
+          return (
+            <Card
+              key={workout._id}
+              id={workout._id}
+              title={workout.title}
+              reps={Number(workout.reps)}
+              load={Number(workout.load)}
+              createdAt={workout.createdAt}
+            />
+          );
+        })}
     </>
   );
 };

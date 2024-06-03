@@ -3,11 +3,11 @@ import { WorkoutForm } from "../../index";
 const AddWorkout = () => {
   return (
     <WorkoutForm
-      title={"Add a New Workout"}
+      heading={"Add a New Workout"}
       submitButtonText={"Add Workout"}
       fields={[
         {
-          name: "name",
+          name: "title",
           label: "Exercise Name",
           type: "text",
           placeholder: "enter workout name",
