@@ -2,14 +2,12 @@ import { useEffect } from "react";
 import { Details, AddWorkout } from "../../index";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 const Home = () => {
   const { workouts, dispatch } = useWorkoutContext();
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response = await fetch(apiUrl);
+      const response = await fetch("http://localhost:3000/api/workouts");
 
       if (!response.ok) {
         console.error("Error fetching workouts");

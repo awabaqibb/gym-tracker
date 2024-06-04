@@ -20,7 +20,6 @@ export const workoutReducer = (state, action) => {
       };
 
     case "SET_WORKOUT":
-      console.log({ ...state, workouts: action.payload });
       return { ...state, workouts: action.payload };
 
     default:
