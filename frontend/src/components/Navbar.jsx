@@ -32,9 +32,12 @@ const Navbar = () => {
             </Link>
           </>
         ) : (
-          <button onClick={logoutHandler}>
-            <h1 className="px-12 py-6 text-red-400 font-semibold ">Logout</h1>
-          </button>
+          <div>
+            <span className="font-semibold">{user.username}</span>
+            <button onClick={logoutHandler}>
+              <h1 className="px-12 py-6 text-red-400 ">Logout</h1>
+            </button>
+          </div>
         )}
       </nav>
     </header>
