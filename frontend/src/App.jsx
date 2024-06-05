@@ -6,13 +6,11 @@ function App() {
     <div className="bg-slate-100 min-h-screen">
       <BrowserRouter>
         <Navbar />
-        <div className="pages">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
       </BrowserRouter>
     </div>
   );

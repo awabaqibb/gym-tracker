@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
-const apiUrl = import.meta.env.VITE_API_URL;
 
 export const Card = ({ title, reps, load, createdAt, id }) => {
   const { dispatch } = useWorkoutContext();
 
   const deleteWorkout = async (id) => {
-    const response = await fetch(`${apiUrl}/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/workouts/${id}`, {
       method: "DELETE",
     });
 
@@ -36,7 +35,6 @@ export const Card = ({ title, reps, load, createdAt, id }) => {
 };
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
   reps: PropTypes.number.isRequired,
   load: PropTypes.number.isRequired,
   createdAt: PropTypes.number.isRequired,

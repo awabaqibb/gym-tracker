@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { Card } from "../../index";
-import { differenceInHours, differenceInMinutes } from "date-fns";
+import { differenceInHours } from "date-fns";
 
 const Details = ({ workouts }) => {
   return (
     <>
       {workouts &&
         workouts.map((workout) => {
-          const hoursSinceCreated = differenceInMinutes(
+          const hoursSinceCreated = differenceInHours(
             new Date(),
             new Date(workout.createdAt)
           );

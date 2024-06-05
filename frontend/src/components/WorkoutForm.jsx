@@ -18,7 +18,7 @@ const WorkoutForm = ({ heading, submitButtonText, fields }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(apiUrl, {
+    const response = await fetch("http://localhost:3000/api/workouts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,8 +31,7 @@ const WorkoutForm = ({ heading, submitButtonText, fields }) => {
     if (!response.ok) {
       throw new Error("Error adding workout");
     } else {
-      console.log("Workout added successfully", json);
-      dispatch({ type: "ADD_WORKOUT", payload: json });
+      dispatch({ type: "ADD_WORKOUT", payload: json.new });
     }
   };
 

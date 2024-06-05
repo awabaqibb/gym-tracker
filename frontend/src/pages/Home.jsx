@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Details, AddWorkout } from "../../index";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
 
 const Home = () => {
   const { workouts, dispatch } = useWorkoutContext();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -16,10 +17,15 @@ const Home = () => {
 
       const { workouts } = await response.json();
       dispatch({ type: "SET_WORKOUT", payload: workouts });
+      setLoading(false);
     };
 
     fetchWorkouts();
   }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex justify-between my-10 px-4 ">
