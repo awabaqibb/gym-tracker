@@ -1,11 +1,13 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const WorkoutForm = ({ heading, submitButtonText, fields }) => {
   const [formValues, setFormValues] = useState([]);
+  const { user } = useAuthContext();
   const { dispatch } = useWorkoutContext();
 
   const handleInputChange = (e) => {
@@ -18,10 +20,15 @@ const WorkoutForm = ({ heading, submitButtonText, fields }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      return;
+    }
+
     const response = await fetch("http://localhost:3000/api/workouts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify(formValues),
     });

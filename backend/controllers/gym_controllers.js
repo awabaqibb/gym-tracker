@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
 
 const getWorkouts = async (req, res) => {
-  const workouts = await GymModel.find({});
+  const user_id = req.user._id;
+  const workouts = await GymModel.find({ user_id });
   res.status(200).json({ workouts });
 };
 
@@ -26,7 +27,9 @@ const getOneWorkout = async (req, res) => {
 
 const addWorkout = async (req, res) => {
   const { title, reps, load } = req.body;
-  const workout = await GymModel.create({ title, reps, load });
+  const user_id = req.user._id;
+  const workout = await GymModel.create({ title, reps, load, user_id });
+  console.log(workout);
   res.status(200).json({ new: workout });
 };
 

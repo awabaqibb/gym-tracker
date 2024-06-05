@@ -6,6 +6,9 @@ const {
   deleteWorkout,
   editWorkout,
 } = require("../controllers/gym_controllers");
+const requireAuth = require("../middleware/auth");
+
+router.use(requireAuth);
 
 router.route("/").get(getWorkouts);
 router.route("/:id").get(getOneWorkout);

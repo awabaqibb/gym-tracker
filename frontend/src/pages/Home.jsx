@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
 import { Details, AddWorkout } from "../../index";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Home = () => {
   const { workouts, dispatch } = useWorkoutContext();
+  const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response = await fetch("http://localhost:3000/api/workouts");
+      const response = await fetch("http://localhost:3000/api/workouts", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
       if (!response.ok) {
         console.error("Error fetching workouts");
@@ -20,8 +26,10 @@ const Home = () => {
       setLoading(false);
     };
 
-    fetchWorkouts();
-  }, [dispatch]);
+    if (user) {
+      fetchWorkouts();
+    }
+  }, [user, dispatch]);
 
   if (loading) {
     return <div>Loading...</div>;

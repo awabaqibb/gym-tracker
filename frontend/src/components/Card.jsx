@@ -1,12 +1,21 @@
 import PropTypes from "prop-types";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const Card = ({ title, reps, load, createdAt, id }) => {
   const { dispatch } = useWorkoutContext();
+  const { user } = useAuthContext();
 
   const deleteWorkout = async (id) => {
+    if (!user) {
+      return;
+    }
+
     const response = await fetch(`http://localhost:3000/api/workouts/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
 
     if (!response.ok) {

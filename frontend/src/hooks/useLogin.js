@@ -8,7 +8,6 @@ export const useLogin = () => {
   const [loading, setLoading] = useState(true);
 
   const login = async (email, password) => {
-    console.log(apiUrl);
     const response = await fetch("http://localhost:3000/api/users/login", {
       method: "POST",
       headers: {
