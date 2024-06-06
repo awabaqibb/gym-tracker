@@ -1,5 +1,6 @@
 const GymModel = require("../models/gym_model");
 const mongoose = require("mongoose");
+const generatePDF = require("../pdf/pdf_service");
 
 const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
 
@@ -7,6 +8,20 @@ const getWorkouts = async (req, res) => {
   const user_id = req.user._id;
   const workouts = await GymModel.find({ user_id });
   res.status(200).json({ workouts });
+  return workouts;
+};
+
+const getPDF = async (req, res) => {
+  const user_id = req.user._id;
+  const username = req.body.username;
+  const workouts = await GymModel.find({ user_id });
+
+  const stream = res.writeHead(200, {
+    "content-type": "application/pdf",
+    "content-disposition": "attachment; filename=workouts.pdf",
+  });
+
+  generatePDF(stream, workouts, username);
 };
 
 const getOneWorkout = async (req, res) => {
@@ -59,4 +74,5 @@ module.exports = {
   addWorkout,
   deleteWorkout,
   editWorkout,
+  getPDF,
 };

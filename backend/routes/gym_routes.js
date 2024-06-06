@@ -5,12 +5,14 @@ const {
   addWorkout,
   deleteWorkout,
   editWorkout,
+  getPDF,
 } = require("../controllers/gym_controllers");
 const requireAuth = require("../middleware/auth");
 
 router.use(requireAuth);
 
 router.route("/").get(getWorkouts);
+router.route("/export").get(getPDF);
 router.route("/:id").get(getOneWorkout);
 
 router.route("/").post(addWorkout);
