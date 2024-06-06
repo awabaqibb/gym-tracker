@@ -7,6 +7,7 @@ const Home = () => {
   const { workouts, dispatch } = useWorkoutContext();
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -18,11 +19,17 @@ const Home = () => {
 
       if (!response.ok) {
         console.error("Error fetching workouts");
+        setError(true);
         return;
       }
 
       const { workouts } = await response.json();
-      dispatch({ type: "SET_WORKOUT", payload: workouts });
+      if (!workouts.length) {
+        setError(true);
+      } else {
+        dispatch({ type: "SET_WORKOUT", payload: workouts });
+        setError(false);
+      }
       setLoading(false);
     };
 
@@ -31,17 +38,31 @@ const Home = () => {
     }
   }, [user, dispatch]);
 
+  useEffect(() => {
+    setError(workouts.length === 0);
+  }, [workouts]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="flex justify-between my-10 px-4 ">
-      <div className="flex-grow mx-10">
-        {workouts && <Details workouts={workouts} />}
-      </div>
-      <div className="mr-40 ml-20">
-        <AddWorkout />
+    <div className="my-5 mx-10">
+      <button
+        disabled={workouts.length === 0}
+        className={`${
+          error ? "bg-slate-500" : "bg-green-500"
+        } shadow-md mt-3 p-1 rounded-lg text-sm text-white`}
+      >
+        Download as PDF
+      </button>
+      <div className="flex">
+        <div className="flex-grow">
+          {workouts && <Details workouts={workouts} />}
+        </div>
+        <div className="mx-20">
+          <AddWorkout />
+        </div>
       </div>
     </div>
   );
